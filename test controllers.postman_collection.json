@@ -1,0 +1,1443 @@
+{
+	"info": {
+		"_postman_id": "6e4c3a46-3d8f-48ab-aa5d-a2c3c4c1adf9",
+		"name": "test controllers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21708537"
+	},
+	"item": [
+		{
+			"name": "TC2-1 test data upload",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "data upload",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"save the task status link\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    // pm.expect(jsonData.message).contain(\"Successsfully\")\r",
+											"\r",
+											"    pm.globals.set(\"task\", jsonData._links.task.href);\r",
+											"    \r",
+											"     pm.expect(jsonData._links.schema.href).is.not.null\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "archive",
+											"contentType": "application/x-zip-compressed",
+											"type": "file",
+											"src": "ABAUT.zip"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{cdmp_url}}/upload",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"upload"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "username",
+						"value": "aurelien.laffont@akka.eu",
+						"type": "string"
+					},
+					{
+						"key": "password",
+						"value": "Questel2025!",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "TC2-2 test get metadata",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "get metada",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"page\": 0,\r\n  \"size\": 20\r\n}"
+								},
+								"url": {
+									"raw": "{{cdmp_url}}/metadata",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"metadata"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-3 test post metada",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "post metada",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"pilotSite\": \"FR\"\n}"
+								},
+								"url": {
+									"raw": "{{cdmp_url}}/metadata?page=0&size=20",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"metadata"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "20"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-4 test get metadata by UUID",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "get metadata by UUID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{cdmp_url}}/metadata/9ae8fbb4-69de-4776-8d64-3cca818b90e8",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"metadata",
+										"9ae8fbb4-69de-4776-8d64-3cca818b90e8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-5 test get the site metada by UUID",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "get the site metadata by UUID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{cdmp_url}}/metadata/9ae8fbb4-69de-4776-8d64-3cca818b90e8/site",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"metadata",
+										"9ae8fbb4-69de-4776-8d64-3cca818b90e8",
+										"site"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-6 test get the process of the metadata by UUID",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "get the process by UUID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{cdmp_url}}/metadata/9ae8fbb4-69de-4776-8d64-3cca818b90e8/process",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"metadata",
+										"9ae8fbb4-69de-4776-8d64-3cca818b90e8",
+										"process"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-7 test get the file description of the metadata by UUID",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "get file description by UUID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "9ae8fbb4-69de-4776-8d64-3cca818b90e8\r\n{\r\n  \"page\": 0,\r\n  \"size\":20\r\n}"
+								},
+								"url": {
+									"raw": "{{cdmp_url}}/metadata/9ae8fbb4-69de-4776-8d64-3cca818b90e8/files-description",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"metadata",
+										"9ae8fbb4-69de-4776-8d64-3cca818b90e8",
+										"files-description"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-8 test get the file description with the metadata by UUID and the file description id",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "get the file description by task UUID and file ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "9ae8fbb4-69de-4776-8d64-3cca818b90e8\r\n24"
+								},
+								"url": {
+									"raw": "{{cdmp_url}}/metadata/9ae8fbb4-69de-4776-8d64-3cca818b90e8/files-description/24",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"metadata",
+										"9ae8fbb4-69de-4776-8d64-3cca818b90e8",
+										"files-description",
+										"24"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-9A test download the file with the metadata UUID and file description ID",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "download the file description from an UUID and file ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{cdmp_url}}/metadata/9ae8fbb4-69de-4776-8d64-3cca818b90e8/files-description/24/file/download",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"metadata",
+										"9ae8fbb4-69de-4776-8d64-3cca818b90e8",
+										"files-description",
+										"24",
+										"file",
+										"download"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-9B test download the archive by an UUID",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "download archive for an UUID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/octet-stream"
+									}
+								],
+								"url": {
+									"raw": "{{cdmp_url}}/metadata/9ae8fbb4-69de-4776-8d64-3cca818b90e8/archive",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"metadata",
+										"9ae8fbb4-69de-4776-8d64-3cca818b90e8",
+										"archive"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-10 test download XSD validation shema",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "download the XSD shema",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/octet-stream"
+									}
+								],
+								"url": {
+									"raw": "{{cdmp_url}}/metadata/schema",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"metadata",
+										"schema"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-11 test get abaut transports data",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "abaut transport data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"page\": 0,\r\n  \"size\":20\r\n}"
+								},
+								"url": {
+									"raw": "http://20.111.45.180:8085/cdmp/abaut/transport",
+									"protocol": "http",
+									"host": [
+										"20",
+										"111",
+										"45",
+										"180"
+									],
+									"port": "8085",
+									"path": [
+										"cdmp",
+										"abaut",
+										"transport"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-12 test get abaut transport data with a transport id",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "abaut transports data of a transport ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{cdmp_url}}/abaut/transport/R0011k5lij",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"abaut",
+										"transport",
+										"R0011k5lij"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-13 test get the project from a transport ID",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "project from a transport ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{cdmp_url}}/abaut/transport/R0011k5lij/project",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"abaut",
+										"transport",
+										"R0011k5lij",
+										"project"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-14 test get abaut regions data",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "abaut region data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"page\": 0,\r\n  \"size\": 20\r\n}"
+								},
+								"url": {
+									"raw": "{{cdmp_url}}/abaut/region",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"abaut",
+										"region"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-15 test get abaut region data by region ID",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "abaut region by region ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{cdmp_url}}/abaut/region/70001",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"abaut",
+										"region",
+										"70001"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-16 test get abaut projects data",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "abaut projects data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"page\": 0,\r\n  \"size\": 20\r\n}"
+								},
+								"url": {
+									"raw": "{{cdmp_url}}/abaut/project",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"abaut",
+										"project"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-17 test get abaut project data by prject ID",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "abaut project by ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{cdmp_url}}/abaut/project/AT0004",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"abaut",
+										"project",
+										"AT0004"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-18 test get the transports of a project ID",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "abaut transport for a project ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"page\": 0,\r\n  \"size\":20\r\n}"
+								},
+								"url": {
+									"raw": "{{cdmp_url}}/abaut/project/AT0004/transports",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"abaut",
+										"project",
+										"AT0004",
+										"transports"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-19 test get abaut machines data",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "abaut machines",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"page\": 0,\r\n  \"size\": 20\r\n}"
+								},
+								"url": {
+									"raw": "{{cdmp_url}}/abaut/machine",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"abaut",
+										"machine"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-20 test get abaut machines of a project ID",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "abaut machine by machine ID ",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{cdmp_url}}/abaut/machine/R205",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"abaut",
+										"machine",
+										"R205"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-21A test searching for file by UUID",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "searching files by UUID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{cdmp_url}}/ftp/end/test-data/9ae8fbb4-69de-4776-8d64-3cca818b90e8",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"ftp",
+										"end",
+										"test-data",
+										"9ae8fbb4-69de-4776-8d64-3cca818b90e8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-21B test searching for files by filename",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "searching files by filename",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{cdmp_url}}/ftp/start/test-data/21455_FR_Abaut_Treatment_220822.zip",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"ftp",
+										"start",
+										"test-data",
+										"21455_FR_Abaut_Treatment_220822.zip"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-22A test get list of tasks",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "list of tasks",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"page\": 0,\r\n  \"size\": 20\r\n}"
+								},
+								"url": {
+									"raw": "{{cdmp_url}}/tasks",
+									"host": [
+										"{{cdmp_url}}"
+									],
+									"path": [
+										"tasks"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "TC2-22B test filtering tsks by UUID",
+			"item": [
+				{
+					"name": "positive",
+					"item": [
+						{
+							"name": "task of an UUID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "http://20.111.45.180:8085/cdmp/tasks/9ae8fbb4-69de-4776-8d64-3cca818b90e8",
+									"protocol": "http",
+									"host": [
+										"20",
+										"111",
+										"45",
+										"180"
+									],
+									"port": "8085",
+									"path": [
+										"cdmp",
+										"tasks",
+										"9ae8fbb4-69de-4776-8d64-3cca818b90e8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "negative",
+					"item": []
+				}
+			]
+		}
+	]
+}

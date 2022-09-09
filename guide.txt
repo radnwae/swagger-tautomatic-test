@@ -1,0 +1,22 @@
+cd Desktop/Test_et_validation/"automatique tests"
+newman run "test controllers.postman_collection.json" -e "dev_cdmp.postman_environment.json"
+
+postman: aurelien.laffont@akka.eu
+Questel2025!
+
+
+
+jenkins port 8086
+
+pour avoir le git emplacement:
+git --exec-path
+copier le path puis dans jenkins -> manage jenkis -> global tool configuration -> coller le path dans path to git executable
+
+
+
+
+export PATH C=\Users\Radwane.MADANI\AppData\Roaming\npm\node_modules\newman\bin
+
+newman run "test controllers.postman_collection.json" -e "dev_cdmp.postman_environment.json"
+export PATHC=\Users\Radwane.MADANI\AppData\Roaming\npm\node_modules\newman\bin
+"C:\Users\Radwane.MADANI\AppData\Roaming\npm\node_modules\newman" run "test controllers.postman_collection.json" -e "dev_cdmp.postman_environment.json"
